@@ -23,13 +23,6 @@ class Example extends AbstractBlock
     public string $view = 'blocks.example';
 
     /**
-     * Js/css block dependencies. Use bud config
-     *
-     * @var array
-     */
-    public array $dependencies = [];
-
-    /**
      * Block attributes. Must match with in jsx. Used to set up default values.
      *
      * @var array
@@ -42,6 +35,10 @@ class Example extends AbstractBlock
         'show_title' => [
             'type' => 'boolean',
             'default' => true,
+        ],
+        'width' => [
+            'type' => 'integer',
+            'default' => 900,
         ],
         'image' => [
             'type' => 'integer',
@@ -61,10 +58,11 @@ class Example extends AbstractBlock
     public function getBlockData(array $attributes, string $content): array
     {
         $data = [
-            'title' => (string) $attributes['title'],
-            'show_title' => (bool) $attributes['show_title'],
-            'image' => (int) $attributes['image'],
-            'bg_color' => (string) $attributes['bg_color'],
+            'title' => (string)$attributes['title'],
+            'show_title' => (bool)$attributes['show_title'],
+            'width' => (int) $attributes['width'],
+            'image' => (int)$attributes['image'],
+            'bg_color' => (string)$attributes['bg_color'],
         ];
 
         return [...parent::getBlockData($attributes, $content), ...$data];
@@ -89,6 +87,15 @@ class Example extends AbstractBlock
                 'type' => 'ToggleControl',
                 'label' => __('Show Title?', 'sage'),
                 'value' => true,
+            ],
+            [
+                'name' => 'width',
+                'type' => 'RangeControl',
+                'label' => __('Width', 'sage'),
+                'value' => '',
+                'min' => 200,
+                'max' => 2000,
+                'step' => 20,
             ],
             [
                 'name' => 'image',
@@ -118,8 +125,13 @@ class Example extends AbstractBlock
         ];
     }
 
-    public function data(): array
+    public function getAssets(): array
     {
-        return [];
+        return [
+            [
+                'handle' => 'example',
+                'condition' => fn(array $block): bool => !empty($block['attrs']['show_title']), // enqueue js if show_title is checked
+            ],
+        ];
     }
 }
