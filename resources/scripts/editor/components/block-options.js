@@ -48,7 +48,7 @@ export default function BlockOptions({name, props}) {
           mediaUrl
             ?
             <img src={mediaUrl} alt=''/>
-            : 'Загрузить изображение'
+            : 'Upload Image'
         }
       </>
     );
@@ -167,7 +167,7 @@ export default function BlockOptions({name, props}) {
       {!data && <Spinner/>}
       {data && data.options && (
         <InspectorControls>
-          <PanelBody title='Настройки блока'>
+          <PanelBody title='Block Options'>
             {data.options.map((option) => (renderOptions(option)))}
           </PanelBody>
         </InspectorControls>

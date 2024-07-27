@@ -62,7 +62,7 @@ class Example extends AbstractBlock
             [
                 'name' => 'bg_color',
                 'type' => 'ColorPalette',
-                'label' => __('Цвет фона', 'sage'),
+                'label' => __('BG Color', 'sage'),
                 'colors' => [
                     [
                         'name' => 'transparent',
