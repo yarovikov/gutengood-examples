@@ -34,19 +34,19 @@ class Example extends AbstractBlock
         return [
             [
                 'name' => 'title',
-                'type' => 'TextControl',
+                'type' => 'Text',
                 'label' => __('Title', 'sage'),
                 'default_value' => '',
             ],
             [
                 'name' => 'show_title',
-                'type' => 'ToggleControl',
+                'type' => 'Toggle',
                 'label' => __('Show Title?', 'sage'),
                 'default_value' => true,
             ],
             [
                 'name' => 'width',
-                'type' => 'RangeControl',
+                'type' => 'Range',
                 'label' => __('Width', 'sage'),
                 'default_value' => 800,
                 'min' => 200,
@@ -55,7 +55,7 @@ class Example extends AbstractBlock
             ],
             [
                 'name' => 'image',
-                'type' => 'MediaUpload',
+                'type' => 'Image',
                 'label' => __('Image', 'sage'),
                 'default_value' => '',
             ],
