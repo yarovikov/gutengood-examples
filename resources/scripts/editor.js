@@ -1,3 +1,5 @@
+import './editor/block-register';
+
 roots.register.blocks(`./editor/`);
 roots.register.formats(`./editor/`);
 roots.register.variations(`./editor/`);
