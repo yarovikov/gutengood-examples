@@ -12,11 +12,31 @@ export const SortableList = ({fields, props}) => {
   } = props;
 
   const {items = []} = attributes;
-  const [sortableItems, setSortableItems] = useState(items);
+  const [sortableItems, setSortableItems] = useState([]);
 
   useEffect(() => {
-    setSortableItems(items);
-  }, [items]);
+    const fieldNames = new Set(fields.map(field => field.name));
+
+    const updatedItems = items.map(item => {
+      const updatedItem = {id: item.id};
+
+      Object.keys(item).forEach(key => {
+        if (fieldNames.has(key) || key === 'id') {
+          updatedItem[key] = item[key];
+        }
+      });
+
+      fieldNames.forEach(fieldName => {
+        if (!(fieldName in updatedItem)) {
+          updatedItem[fieldName] = '';
+        }
+      });
+
+      return updatedItem;
+    });
+
+    setSortableItems(updatedItems);
+  }, [items, fields]);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -55,9 +75,9 @@ export const SortableList = ({fields, props}) => {
     setAttributes({items: newItems});
   };
 
-  const updateItemContent = (id, value, t) => {
+  const updateItemContent = (id, name, value) => {
     const newItems = sortableItems.map((item) =>
-      item.id === id ? {...item, [t]: value} : item
+      item.id === id ? {...item, [name]: value} : item
     );
     setSortableItems(newItems);
     setAttributes({items: newItems});
@@ -79,7 +99,7 @@ export const SortableList = ({fields, props}) => {
           items={sortableItems}
           strategy={verticalListSortingStrategy}
         >
-          <ul className='flex flex-col gap-4'>
+          <ul className='flex flex-col gap-4 p-0'>
             {sortableItems.map((item) => (
               <SortableItem
                 key={item.id}

@@ -8,11 +8,7 @@ import {SortableList} from "@scripts/editor/components/sortable-list";
 
 export default function BlockFields({name, props}) {
 
-  const {
-    attributes,
-    setAttributes,
-  } = props;
-
+  const {attributes, setAttributes} = props;
   const [data, setData] = useState([]);
   const [editMode, setEditMode] = useState(false);
 

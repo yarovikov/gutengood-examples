@@ -1,8 +1,8 @@
 import {useSortable} from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
 import {closeSmall, dragHandle} from '@wordpress/icons';
-import {RichText} from '@wordpress/block-editor';
 import {Button} from '@wordpress/components';
+import BlockComponents from "@scripts/editor/components/block-components";
 
 export const SortableItem = ({id, item, fields, updateItemContent, deleteItem}) => {
   const {
@@ -43,27 +43,13 @@ export const SortableItem = ({id, item, fields, updateItemContent, deleteItem}) 
         </Button>
       </div>
       <div className='flex flex-col gap-4'>
-        {fields && (
-          <>
-            {fields.map((field) => {
-              switch (field.type) {
-                case 'RichText':
-                  return (
-                    <RichText
-                      key={`${field.name}_${id}`}
-                      placeholder={field.placeholder ?? '...'}
-                      value={item[field.name]}
-                      onChange={(value) => {
-                        updateItemContent(id, value, field.name)
-                      }}
-                    />
-                  );
-                default:
-                  return null;
-              }
-            })}
-          </>
-        )}
+        <BlockComponents
+          attributes={attributes}
+          components={fields}
+          onChange={updateItemContent}
+          item={item}
+          id={id}
+        />
       </div>
     </li>
   );
