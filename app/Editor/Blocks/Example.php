@@ -8,6 +8,7 @@ use Yarovikov\Gutengood\Editor\AbstractBlock;
 
 class Example extends AbstractBlock
 {
+    public string $title = 'Example';
     public string $name = 'gutengood/example';
     public string $view = 'blocks.example';
 

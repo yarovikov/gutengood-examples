@@ -5,17 +5,17 @@ import BlockFields from "@scripts/editor/components/block-fields";
 
 if ('undefined' !== typeof gutengoodBlocks) {
   gutengoodBlocks.forEach(block => {
-    const name = `gutengood/${block}`;
+    const name = block.name;
     registerBlockType(name, {
-      title: block,
+      title: block.title,
       icon: 'block-default',
       category: 'common',
       edit: (props) => {
         return (
-          <Fragment>
-            <BlockOptions name={name} props={props}/>
-            <BlockFields name={name} props={props}/>
-          </Fragment>
+            <Fragment>
+              <BlockOptions name={name} props={props}/>
+              <BlockFields name={name} props={props}/>
+            </Fragment>
         )
       },
       save: () => null,
