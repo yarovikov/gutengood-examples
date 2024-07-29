@@ -3,7 +3,7 @@ import apiFetch from '@wordpress/api-fetch';
 import {useEffect, useState} from "react";
 import {RichText, BlockControls} from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
-import {previewIcon} from '@scripts/editor/components/preview-icon';
+import {seen} from '@wordpress/icons';
 import {SortableList} from "@scripts/editor/components/sortable-list";
 
 export default function BlockFields({name, props}) {
@@ -60,7 +60,7 @@ export default function BlockFields({name, props}) {
         <BlockControls>
           <ToolbarGroup>
             <ToolbarButton
-              icon={!editMode ? 'edit' : previewIcon}
+              icon={!editMode ? 'edit' : seen}
               onClick={toggleEditMode}
             />
           </ToolbarGroup>

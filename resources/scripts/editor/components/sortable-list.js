@@ -99,7 +99,7 @@ export const SortableList = ({fields, props}) => {
           items={sortableItems}
           strategy={verticalListSortingStrategy}
         >
-          <ul className='flex flex-col gap-4 p-0'>
+          <ul className='flex flex-col gap-4 py-0 px-2.5'>
             {sortableItems.map((item) => (
               <SortableItem
                 key={item.id}
