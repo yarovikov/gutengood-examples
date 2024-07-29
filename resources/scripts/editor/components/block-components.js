@@ -41,7 +41,7 @@ export default function BlockComponents({attributes, components, onChange, item 
           )
           :
           <Button
-            className='is-primary'
+            className='is-primary block'
             onClick={open}
           >
             Choose Image
