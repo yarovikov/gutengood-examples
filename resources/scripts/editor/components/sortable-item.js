@@ -21,12 +21,12 @@ export const SortableItem = ({id, item, fields, updateItemContent, deleteItem}) 
   };
 
   return (
-    <li
+    <div
       ref={setNodeRef}
       style={style}
-      className='flex flex-col gap-2'
+      className='flex bg-gray-100'
     >
-      <div className='flex gap-2 items-center justify-between bg-black/5'>
+      <div className='flex flex-col w-10 gap-2 items-center justify-between bg-gray-200'>
         <Button
           {...attributes}
           {...listeners}
@@ -42,7 +42,7 @@ export const SortableItem = ({id, item, fields, updateItemContent, deleteItem}) 
         >
         </Button>
       </div>
-      <div className='flex flex-col gap-4'>
+      <div className='flex flex-col gap-4 p-4'>
         <BlockComponents
           attributes={attributes}
           components={fields}
@@ -51,6 +51,6 @@ export const SortableItem = ({id, item, fields, updateItemContent, deleteItem}) 
           id={id}
         />
       </div>
-    </li>
+    </div>
   );
 }

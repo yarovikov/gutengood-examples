@@ -37,13 +37,13 @@ class Example extends AbstractBlock
                 'name' => 'title',
                 'type' => 'Text',
                 'label' => __('Title', 'sage'),
-                'default_value' => '',
+                'value' => '',
             ],
             [
                 'name' => 'show_title',
                 'type' => 'Toggle',
                 'label' => __('Show Title?', 'sage'),
-                'default_value' => true,
+                'value' => true,
             ],
             [
                 'name' => 'width',
@@ -58,7 +58,7 @@ class Example extends AbstractBlock
                 'name' => 'image',
                 'type' => 'Image',
                 'label' => __('Image', 'sage'),
-                'default_value' => '',
+                'value' => '',
             ],
             [
                 'name' => 'bg_color',
@@ -78,7 +78,7 @@ class Example extends AbstractBlock
                         'color' => '#fff',
                     ],
                 ],
-                'default_value' => '#fff',
+                'value' => '#fff',
             ],
         ];
     }
