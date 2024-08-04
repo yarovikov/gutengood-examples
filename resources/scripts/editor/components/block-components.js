@@ -5,52 +5,41 @@ import {
   SelectControl,
   ColorPalette,
   BaseControl,
-  Button,
   RangeControl,
 } from '@wordpress/components';
 import {MediaUpload, MediaUploadCheck, RichText} from '@wordpress/block-editor';
-import {useSelect} from '@wordpress/data';
+import {useState, useEffect} from '@wordpress/element';
+import {ImagePreview} from "@scripts/editor/components/image-preview";
 
 export default function BlockComponents({attributes, components, onChange, item = null, id = null}) {
 
-  const ImagePreview = ({open, remove, mediaId}) => {
-    const media = useSelect((select) => select('core').getMedia(mediaId), [mediaId]);
-    const mediaUrl = media ? media.media_details.sizes.thumbnail.source_url : null;
-    return (
-      <>
-        {mediaUrl
-          ?
-          (
-            <div className='relative w-fit'>
-              <div className='mb-2 w-32 aspect-square overflow-hidden relative'>
-                <img className='w-full h-full absolute object-cover' src={mediaUrl} alt=''/>
-                <div className='absolute top-2 right-2 flex items-center gap-2'>
-                  <Button
-                    className='bg-white/80'
-                    onClick={open}
-                    icon={'edit'}
-                  >
-                  </Button>
-                  <Button
-                    className='bg-white/80'
-                    icon={'trash'}
-                    onClick={remove}
-                  >
-                  </Button>
-                </div>
-              </div>
-            </div>
-          )
-          :
-          <Button
-            className='is-primary !block'
-            onClick={open}
-          >
-            Выбрать изображение
-          </Button>
-        }
-      </>
-    );
+  const [componentStates, setComponentStates] = useState({});
+
+  // component conditions
+  useEffect(() => {
+    const initialStates = {};
+    components.forEach(component => {
+      initialStates[component.name] = item ? item[component.name] : attributes[component.name];
+    });
+    setComponentStates(initialStates);
+  }, [components, item, attributes]);
+
+  const handleChange = (id, name, value) => {
+    setComponentStates((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+    onChange(id, name, value);
+  };
+
+  const shouldRenderComponent = (component) => {
+    if (component.conditions) {
+      const conditions = Array.isArray(component.conditions) ? component.conditions : [component.conditions];
+      return conditions.every(condition =>
+        componentStates[condition.name] === condition.value
+      );
+    }
+    return true;
   };
 
   const renderBlockComponents = (component) => {
@@ -81,7 +70,7 @@ export default function BlockComponents({attributes, components, onChange, item 
             key={component.name}
             label={component.label}
             checked={item ? item[component.name] : attributes[component.name]}
-            onChange={(value) => onChange(id, component.name, value)}
+            onChange={(value) => handleChange(id, component.name, value)}
           />
         );
       case 'Select':
@@ -90,7 +79,7 @@ export default function BlockComponents({attributes, components, onChange, item 
             key={component.name}
             label={component.label}
             value={item ? item[component.name] : attributes[component.name]}
-            onChange={(value) => onChange(id, component.name, value)}
+            onChange={(value) => handleChange(id, component.name, value)}
             options={[
               ...component.choices,
             ]}
@@ -165,7 +154,9 @@ export default function BlockComponents({attributes, components, onChange, item 
 
   return (
     <>
-      {components.map((component) => (renderBlockComponents(component)))}
+      {components.map((component) => {
+        return shouldRenderComponent(component) ? renderBlockComponents(component) : null;
+      })}
     </>
   )
 }

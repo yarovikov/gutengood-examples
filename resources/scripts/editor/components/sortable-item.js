@@ -1,10 +1,14 @@
 import {useSortable} from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
-import {closeSmall, dragHandle} from '@wordpress/icons';
+import {closeSmall, dragHandle, plus} from '@wordpress/icons';
 import {Button} from '@wordpress/components';
+import {useState} from '@wordpress/element';
 import BlockComponents from "@scripts/editor/components/block-components";
 
 export const SortableItem = ({id, item, fields, updateItemContent, deleteItem}) => {
+
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
   const {
     attributes,
     listeners,
@@ -26,11 +30,17 @@ export const SortableItem = ({id, item, fields, updateItemContent, deleteItem}) 
       style={style}
       className='flex bg-gray-100'
     >
-      <div className='flex flex-col w-10 gap-2 items-center justify-between bg-gray-200'>
+      <div className='flex flex-col w-10 shrink-0 gap-2 items-center bg-gray-200'>
         <Button
           {...attributes}
           {...listeners}
           icon={dragHandle}
+          className='!shadow-none'
+        >
+        </Button>
+        <Button
+          icon={isCollapsed ? plus : 'minus'}
+          onClick={() => setIsCollapsed(!isCollapsed)}
           className='!shadow-none'
         >
         </Button>
@@ -42,7 +52,7 @@ export const SortableItem = ({id, item, fields, updateItemContent, deleteItem}) 
         >
         </Button>
       </div>
-      <div className='flex flex-col gap-4 p-4'>
+      <div className={`${isCollapsed ? '[&>div]:hidden [&>div:first-child]:block' : ''} flex flex-col gap-4 p-4`}>
         <BlockComponents
           attributes={attributes}
           components={fields}
