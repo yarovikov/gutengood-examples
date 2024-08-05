@@ -15,7 +15,7 @@ export default function BlockComponents({attributes, components, onChange, item 
 
   const [componentStates, setComponentStates] = useState({});
 
-  // component conditions
+  // component condition
   useEffect(() => {
     const initialStates = {};
     components.forEach(component => {
@@ -33,10 +33,10 @@ export default function BlockComponents({attributes, components, onChange, item 
   };
 
   const shouldRenderComponent = (component) => {
-    if (component.conditions) {
-      const conditions = Array.isArray(component.conditions) ? component.conditions : [component.conditions];
-      return conditions.every(condition =>
-        componentStates[condition.name] === condition.value
+    if (component.condition) {
+      const condition = Array.isArray(component.condition) ? component.condition : [component.condition];
+      return condition.every(con =>
+          componentStates[con.name] === con.value
       );
     }
     return true;
@@ -46,106 +46,106 @@ export default function BlockComponents({attributes, components, onChange, item 
     switch (component.type) {
       case 'Text':
         return (
-          <TextControl
-            key={component.name}
-            label={component.label}
-            help={component.help}
-            value={item ? item[component.name] : attributes[component.name]}
-            onChange={(value) => onChange(id, component.name, value)}
-          />
+            <TextControl
+                key={component.name}
+                label={component.label}
+                help={component.help}
+                value={item ? item[component.name] : attributes[component.name]}
+                onChange={(value) => onChange(id, component.name, value)}
+            />
         );
       case 'Textarea':
         return (
-          <TextareaControl
-            key={component.name}
-            label={component.label}
-            help={component.help}
-            value={item ? item[component.name] : attributes[component.name]}
-            onChange={(value) => onChange(id, component.name, value)}
-          />
+            <TextareaControl
+                key={component.name}
+                label={component.label}
+                help={component.help}
+                value={item ? item[component.name] : attributes[component.name]}
+                onChange={(value) => onChange(id, component.name, value)}
+            />
         );
       case 'Toggle':
         return (
-          <ToggleControl
-            key={component.name}
-            label={component.label}
-            checked={item ? item[component.name] : attributes[component.name]}
-            onChange={(value) => handleChange(id, component.name, value)}
-          />
+            <ToggleControl
+                key={component.name}
+                label={component.label}
+                checked={item ? item[component.name] : attributes[component.name]}
+                onChange={(value) => handleChange(id, component.name, value)}
+            />
         );
       case 'Select':
         return (
-          <SelectControl
-            key={component.name}
-            label={component.label}
-            value={item ? item[component.name] : attributes[component.name]}
-            onChange={(value) => handleChange(id, component.name, value)}
-            options={[
-              ...component.choices,
-            ]}
-          />
+            <SelectControl
+                key={component.name}
+                label={component.label}
+                value={item ? item[component.name] : attributes[component.name]}
+                onChange={(value) => handleChange(id, component.name, value)}
+                options={[
+                  ...component.choices,
+                ]}
+            />
         );
       case 'ColorPalette':
         return (
-          <BaseControl
-            key={component.name}
-            label={component.label}
-          >
-            <ColorPalette
-              value={item ? item[component.name] : attributes[component.name]}
-              onChange={(value) => onChange(id, component.name, value)}
-              colors={[
-                ...component.colors,
-              ]}
-              disableCustomColors={true}
-              clearable={false}
-            />
-          </BaseControl>
+            <BaseControl
+                key={component.name}
+                label={component.label}
+            >
+              <ColorPalette
+                  value={item ? item[component.name] : attributes[component.name]}
+                  onChange={(value) => onChange(id, component.name, value)}
+                  colors={[
+                    ...component.colors,
+                  ]}
+                  disableCustomColors={true}
+                  clearable={false}
+              />
+            </BaseControl>
         );
       case 'Image':
         return (
-          <BaseControl
-            key={component.name}
-            label={component.label}
-          >
-            <MediaUploadCheck>
-              <MediaUpload
-                onSelect={(media) => onChange(id, component.name, media.id)}
-                allowedTypes={['image']}
-                value={item ? item[component.name] : attributes[component.name]}
-                render={({open}) =>
-                  <ImagePreview
-                    open={open}
-                    remove={() => onChange(id, component.name, 0)}
-                    componentName={component.name}
-                    mediaId={item ? item[component.name] : attributes[component.name]}
-                  />
-                }
-              />
-            </MediaUploadCheck>
-          </BaseControl>
+            <BaseControl
+                key={component.name}
+                label={component.label}
+            >
+              <MediaUploadCheck>
+                <MediaUpload
+                    onSelect={(media) => onChange(id, component.name, media.id)}
+                    allowedTypes={['image']}
+                    value={item ? item[component.name] : attributes[component.name]}
+                    render={({open}) =>
+                        <ImagePreview
+                            open={open}
+                            remove={() => onChange(id, component.name, 0)}
+                            componentName={component.name}
+                            mediaId={item ? item[component.name] : attributes[component.name]}
+                        />
+                    }
+                />
+              </MediaUploadCheck>
+            </BaseControl>
         );
       case 'Range':
         return (
-          <RangeControl
-            key={component.name}
-            label={component.label}
-            value={item ? item[component.name] : attributes[component.name]}
-            onChange={(value) => onChange(id, component.name, value)}
-            min={component.min ?? 300}
-            max={component.max ?? 1536}
-            step={component.step ?? 10}
-          />
+            <RangeControl
+                key={component.name}
+                label={component.label}
+                value={item ? item[component.name] : attributes[component.name]}
+                onChange={(value) => onChange(id, component.name, value)}
+                min={component.min ?? 300}
+                max={component.max ?? 1536}
+                step={component.step ?? 10}
+            />
         );
       case 'RichText':
         return (
-          <RichText
-            key={component.name}
-            label={component.label}
-            value={item ? item[component.name] : attributes[component.name]}
-            onChange={(value) => onChange(id, component.name, value)}
-            placeholder={component.placeholder ?? '...'}
-          />
+            <RichText
+                key={component.name}
+                label={component.label}
+                value={item ? item[component.name] : attributes[component.name]}
+                onChange={(value) => onChange(id, component.name, value)}
+                placeholder={component.placeholder ?? '...'}
+            />
         );
       default:
         return null;
@@ -153,10 +153,10 @@ export default function BlockComponents({attributes, components, onChange, item 
   };
 
   return (
-    <>
-      {components.map((component) => {
-        return shouldRenderComponent(component) ? renderBlockComponents(component) : null;
-      })}
-    </>
+      <>
+        {components.map((component) => {
+          return shouldRenderComponent(component) ? renderBlockComponents(component) : null;
+        })}
+      </>
   )
 }
