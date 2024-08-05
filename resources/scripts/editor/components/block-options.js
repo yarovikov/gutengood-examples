@@ -1,6 +1,6 @@
 import {Spinner, PanelBody} from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
-import {useEffect, useState} from "react";
+import {useState, useEffect} from '@wordpress/element';
 import {InspectorControls} from '@wordpress/block-editor';
 import BlockComponents from "@scripts/editor/components/block-components";
 

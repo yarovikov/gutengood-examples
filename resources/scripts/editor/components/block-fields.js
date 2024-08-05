@@ -1,6 +1,6 @@
 import {Spinner, ToolbarButton, ToolbarGroup} from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
-import {useEffect, useState} from "react";
+import {useState, useEffect} from '@wordpress/element';
 import {RichText, BlockControls} from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
 import {seen} from '@wordpress/icons';

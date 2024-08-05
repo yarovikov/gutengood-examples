@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState, useEffect} from '@wordpress/element';
 import {closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors} from "@dnd-kit/core";
 import {arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy} from "@dnd-kit/sortable";
 import {SortableItem} from "@scripts/editor/components/sortable-item";
