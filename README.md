@@ -1,5 +1,3 @@
-Gutenberg block examples and editor js part for https://github.com/yarovikov/gutengood
-
 ### Requirements
 [Acorn + Sage Wordpress Theme](https://roots.io)
 
