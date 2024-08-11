@@ -1,10 +1,10 @@
 import {Spinner, ToolbarButton, ToolbarGroup} from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 import {useState, useEffect} from '@wordpress/element';
-import {RichText, BlockControls} from '@wordpress/block-editor';
+import {BlockControls} from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
 import {seen} from '@wordpress/icons';
-import {SortableList} from "@scripts/editor/components/sortable-list";
+import BlockComponents from "@scripts/editor/components/block-components";
 
 export default function BlockFields({name, props}) {
 
@@ -12,7 +12,7 @@ export default function BlockFields({name, props}) {
   const [data, setData] = useState([]);
   const [editMode, setEditMode] = useState(false);
 
-  const onChangeAttribute = (key, value) => {
+  const onChangeAttribute = (id = null, key, value) => {
     setAttributes({[key]: value})
   };
 
@@ -31,28 +31,6 @@ export default function BlockFields({name, props}) {
       .catch((error) => console.error(error?.message));
   }, []);
 
-  const renderFields = (field) => {
-    switch (field.type) {
-      case 'RichText':
-        return (
-          <RichText
-            key={field.name}
-            placeholder='...'
-            value={attributes[field.name]}
-            onChange={(value) => {
-              onChangeAttribute([field.name], value)
-            }}
-          />
-        );
-      case 'Repeater':
-        return (
-          <SortableList key={field.name} fields={field.fields} props={props}/>
-        );
-      default:
-        return null;
-    }
-  };
-
   return (
     <>
       {!data && <Spinner/>}
@@ -67,9 +45,14 @@ export default function BlockFields({name, props}) {
         </BlockControls>
       )}
       {data && data.fields && editMode && (
-        <>
-          {data.fields.map((field) => (renderFields(field)))}
-        </>
+        <div className='px-4'>
+          <BlockComponents
+            attributes={attributes}
+            components={data.fields}
+            onChange={onChangeAttribute}
+            props={props}
+          />
+        </div>
       )}
       {!editMode && (
         <ServerSideRender

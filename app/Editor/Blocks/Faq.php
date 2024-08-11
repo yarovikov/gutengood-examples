@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Editor\Blocks;
 
 use Yarovikov\Gutengood\Editor\AbstractBlock;
+use Yarovikov\Gutengood\Editor\GutengoodBuilder;
 
 class Faq extends AbstractBlock
 {
@@ -24,36 +25,28 @@ class Faq extends AbstractBlock
 
     public function fields(): array
     {
-        return [
-            [
-                'name' => 'items',
-                'type' => 'Repeater',
-                'fields' => [
-                    [
-                        'name' => 'title',
-                        'type' => 'Text',
-                        'label' => 'Title',
-                    ],
-                    [
-                        'name' => 'text',
-                        'type' => 'RichText',
-                        'placeholder' => 'Text...',
-                    ],
-                ],
-            ],
-        ];
+        $builder = new GutengoodBuilder();
+
+        $builder
+            ->addRepeater('items')
+            ->addText('title')
+            ->addRichText('text')
+            ->endRepeater();
+
+        return $builder->build();
     }
 
     public function options(): array
     {
-        return [
-            [
-                'name' => 'width',
-                'type' => 'Range',
+        $builder = new GutengoodBuilder();
+
+        $builder
+            ->addRange('width', [
                 'label' => __('Block width', 'sage'),
                 'value' => 900,
-            ],
-        ];
+            ]);
+
+        return $builder->build();
     }
 
     public function getAssets(): array

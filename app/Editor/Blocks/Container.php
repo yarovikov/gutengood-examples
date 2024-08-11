@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Editor\Blocks;
 
 use Yarovikov\Gutengood\Editor\AbstractBlock;
+use Yarovikov\Gutengood\Editor\GutengoodBuilder;
 
 class Container extends AbstractBlock
 {
@@ -25,13 +26,14 @@ class Container extends AbstractBlock
 
     public function options(): array
     {
-        return [
-            [
-                'name' => 'width',
-                'type' => 'Range',
+        $builder = new GutengoodBuilder();
+
+        $builder
+            ->addRange('width', [
                 'label' => __('Block width', 'sage'),
                 'value' => 900,
-            ],
-        ];
+            ]);
+
+        return $builder->build();
     }
 }

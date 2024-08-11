@@ -29,11 +29,12 @@ export default function BlockOptions({name, props}) {
       {!data && <Spinner/>}
       {data && data.options && (
         <InspectorControls>
-          <PanelBody title='Block Options'>
+          <PanelBody title='Настройки блока'>
             <BlockComponents
               attributes={attributes}
               components={data.options}
               onChange={onChangeAttribute}
+              props={props}
             />
           </PanelBody>
         </InspectorControls>

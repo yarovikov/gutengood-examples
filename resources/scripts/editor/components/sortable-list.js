@@ -2,7 +2,7 @@ import {useState, useEffect} from '@wordpress/element';
 import {closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors} from "@dnd-kit/core";
 import {arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy} from "@dnd-kit/sortable";
 import {SortableItem} from "@scripts/editor/components/sortable-item";
-import {Button} from '@wordpress/components';
+import {Button, BaseControl} from '@wordpress/components';
 
 export const SortableList = ({fields, props}) => {
 
@@ -84,7 +84,7 @@ export const SortableList = ({fields, props}) => {
   };
 
   return (
-    <div>
+    <BaseControl>
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
@@ -99,7 +99,7 @@ export const SortableList = ({fields, props}) => {
           items={sortableItems}
           strategy={verticalListSortingStrategy}
         >
-          <div className='flex flex-col gap-4 py-0 px-2.5'>
+          <div className='flex flex-col gap-4'>
             {sortableItems.map((item) => (
               <SortableItem
                 key={item.id}
@@ -116,10 +116,10 @@ export const SortableList = ({fields, props}) => {
       <Button
         isPrimary
         onClick={() => addItem(fields)}
-        className='block mx-auto mt-10'
+        className='block mx-auto mt-3 w-full max-w-[300px]'
       >
-        Добавить
+        Add
       </Button>
-    </div>
+    </BaseControl>
   );
 }
