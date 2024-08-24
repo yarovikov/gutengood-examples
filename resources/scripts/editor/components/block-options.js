@@ -27,9 +27,9 @@ export default function BlockOptions({name, props}) {
   return (
     <>
       {!data && <Spinner/>}
-      {data && data.options && (
+      {data && data.options && data.options.length > 0 && (
         <InspectorControls>
-          <PanelBody title='Настройки блока'>
+          <PanelBody title='Block Options'>
             <BlockComponents
               attributes={attributes}
               components={data.options}

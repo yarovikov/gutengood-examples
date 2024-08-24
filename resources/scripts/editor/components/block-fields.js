@@ -34,7 +34,7 @@ export default function BlockFields({name, props}) {
   return (
     <>
       {!data && <Spinner/>}
-      {data && data.fields && (
+      {data && data.fields && data.fields.length > 0 && (
         <BlockControls>
           <ToolbarGroup>
             <ToolbarButton
