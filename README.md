@@ -20,189 +20,106 @@ add_action('enqueue_block_editor_assets', function (): void {
 ### Documentation
 Check php part block examples here https://github.com/yarovikov/gutengood-examples/tree/master/app/Editor/Blocks.
 
-You don't need block js for register for the editor. But if needed you can set $editor_script like this
-```
-public bool $editor_script = true;
-```
-Then add your custom jsx. Example https://github.com/yarovikov/gutengood-examples/blob/master/resources/scripts/editor/blocks/container.block.js.
-
 #### Block Options
-Add components for sidebar in your Block.php.
 
-<img width="272" alt="Screenshot 2024-08-05 at 11 36 00" src="https://github.com/user-attachments/assets/f2dec0b6-138d-4eb2-8d15-35a412b980d1">
-
-Available components and parameters:
-
-```
-public function options(): array
-    {
-        return [
-            [
-                'name' => 'title',
-                'type' => 'Text',
-                'label' => __('Block Title', 'sage'),
-                'value' => '', // default value
-            ],
-            [
-                'name' => 'title_tag',
-                'type' => 'Select',
-                'label' => __('Title Tag', 'sage'),
-                'choices' => [
-                    [
-                        'label' => 'h1',
-                        'value' => 'h1',
-                    ],
-                    [
-                        'label' => 'h2',
-                        'value' => 'h2',
-                    ],
-                ],
-                'value' => 'h1', // default value
-            ],
-            [
-                'name' => 'text',
-                'type' => 'Textarea',
-                'label' => __('Block Text', 'sage'),
-                'value' => '',
-            ],
-            [
-                'name' => 'width',
-                'type' => 'Range',
-                'label' => __('Block width', 'sage'),
-                'value' => 900,
-                'min' => 400,
-                'max' => 2000,
-                'step' => 20,
-            ],
-            [
-                'name' => 'bg_color',
-                'type' => 'ColorPalette',
-                'label' => __('BG Color', 'sage'),
-                'colors' => [
-                    [
-                        'name' => 'white',
-                        'color' => '#ffffff',
-                        'slug' => 'white',
-                    ],
-                    [
-                        'name' => 'black',
-                        'color' => '#000000',
-                        'slug' => 'black',
-                    ],
-                ],
-                'value' => '#ffffff', // default value
-            ],
-            [
-                'name' => 'show_image',
-                'type' => 'Toggle',
-                'label' => __('Show Image?', 'sage'),
-                'value' => false,
-            ],
-            [
-                'name' => 'image',
-                'type' => 'Image',
-                'label' => __('Image', 'sage'),
-                // show/hide option depend on show_image option (working with Toggle and Select)
-                'condition' => [
-                    'name' => 'show_image',
-                    'value' => true,
-                ],
-            ],
-        ];
-    }
-```
+<img width="240" alt="" src="https://github.com/user-attachments/assets/db5d6c99-317f-4800-99c3-77617e71a4b0">
 
 #### Block Fields
-Only RichText or Repeater.
+Use Edit Button to see editable components in the block
 
-##### RichText
-```
-public function fields(): array
-    {
-        return [
-            [
-                'name' => 'text',
-                'type' => 'RichText',
-            ],
-        ];
-    }
-```
-##### Repeater
-Repeater must contain an array of fields. The same components are available as for the options + RichText.
+<img width="800" alt="" src="https://github.com/user-attachments/assets/381f549c-89aa-4bc0-bc8a-6dc0319d0411">
 
-```
-public function fields(): array
-    {
-        return [
-            [
-                'name' => 'items',
-                'type' => 'Repeater',
-                'fields' => [
-                    [
-                        'name' => 'image',
-                        'type' => 'Image',
-                        'label' => 'Image',
-                    ],
-                    [
-                        'name' => 'title',
-                        'type' => 'Text',
-                        'label' => 'Title',
-                    ],
-                    [
-                        'name' => 'text',
-                        'type' => 'RichText',
-                        'placeholder' => 'Text...',
-                    ],
-                ],
-            ],
-        ];
-    }
-```
-Use Edit Button to see fields in the block
+<img width="800" alt="" src="https://github.com/user-attachments/assets/d8466f71-8610-4dd7-86d9-a898912f4b2d">
 
-<img width="469" alt="Screenshot 2024-08-05 at 11 49 12" src="https://github.com/user-attachments/assets/04b74319-2a07-48bb-a338-6273cb2e16cf">
+You can use components for options and sidebar. But i don't recommend using RichText in the sidebar because of its floating panel.
 
-<img width="627" alt="Screenshot 2024-08-05 at 11 49 34" src="https://github.com/user-attachments/assets/e52da1e8-4696-45b1-aa7a-93770db9649a">
+Example of options:
+```php
+public function options(): array
+{
+  $builder = new GutengoodBuilder();
+
+  $builder
+    ->addText('title', [
+      'label' => __('Block title', 'sage'),
+    ])
+    ->addSelect('title_tag', [
+      'label' => __('Title tag', 'sage'),
+      'choices' => [
+        [
+          'label' => 'h1',
+          'value' => 'h1',
+        ],
+        [
+          'label' => 'h2',
+          'value' => 'h2',
+        ],
+    ],
+    'value' => 'h2', // default value
+  ]);
+
+  return $builder->build();
+}
+```
+
+Also possible to add the same components in the repeater:
+
+<img width="600" alt="" src="https://github.com/user-attachments/assets/a2c60247-3c3d-47c4-bbc3-d8f36b4d626a">
+
+#### Conditional logic show/hide components
+
+Curently work only with Select and Toggle. Example:
+```php
+$builder
+  ->addToggle('is_video')
+  ->addText('video_id')
+  ->conditional('is_video', true); // video_id field will be displayed if the video toggle checkbox is checked
+```
 
 #### Block Data
-Pass your data (fields and options) to the block view 
-https://github.com/yarovikov/gutengood-examples/blob/master/app/Editor/Blocks/Faq.php#L15-L23
-```
+Pass your data (fields and options) to the block view
+```php
 public function getBlockData(array $attributes, string $content): array
-    {
-        $data = [
-            'items' => array_filter(array_map(fn(array $item): ?array => !empty($item['title']) ? $item : null, (array) ($attributes['items'] ?? []))),
-            'width' => (int) ($attributes['width'] ?? 900),
-        ];
+{
+  $data = [
+    'items' => array_filter(array_map(fn(array $item): ?array => !empty($item['title']) ? $item : null, (array) ($attributes['items'] ?? []))),
+    'width' => (int) ($attributes['width'] ?? 900),
+  ];
 
-        return [...parent::getBlockData($attributes, $content), ...$data];
-    }
+  return [...parent::getBlockData($attributes, $content), ...$data];
+}
 ```
 
 #### Block Assets
 Front-end block assets
-```
+```php
 public function getAssets(): array
-    {
-        return [
-            [
-                'handle' => 'gallery',
-                // optional: condition logic
-                'condition' => fn(array $block): bool => !empty($block['attrs']['is_slider']) || !empty($block['attrs']['is_lightbox']),
-            ],
-        ];
-    }
+{
+  return [
+    [
+      'handle' => 'gallery',
+      // optional: conditional logic
+      'condition' => fn(array $block): bool => !empty($block['attrs']['is_slider']) || !empty($block['attrs']['is_lightbox']),
+    ],
+  ];
+}
 ```
 If you need additional external dependencies:
-```
+```php
 public function getAssets(): array
-    {
-        return [
-            [
-                'handle' => 'payment-form',
-                'dependencies' => ['cloudpayments-widget'], // before register this script in your theme
-                'condition' => fn(array $block): bool => true === is_user_logged_in(), // optional
-            ],
-        ];
-    }
+{
+  return [
+    [
+      'handle' => 'payment-form',
+      'dependencies' => ['cloudpayments-widget'], // before register this script in your theme
+      'condition' => fn(array $block): bool => true === is_user_logged_in(), // optional
+    ],
+  ];
+}
 ```
+
+You don't need block js for register for the editor. But if needed you can set $editor_script like this
+```js
+public bool $editor_script = true;
+```
+Then add your custom jsx. [Example](https://github.com/yarovikov/gutengood-examples/blob/master/resources/scripts/editor/blocks/container.block.js) 
