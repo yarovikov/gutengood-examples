@@ -29,6 +29,7 @@ add_action('enqueue_block_editor_assets', function (): void {
 - TimePicker (with date)
 - Range
 - RichText
+- Image
 - Repeater (based on @dnd-kit)
 
 Check php part block examples here https://github.com/yarovikov/gutengood-examples/tree/master/app/Editor/Blocks.
