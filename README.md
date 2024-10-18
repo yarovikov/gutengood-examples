@@ -2,7 +2,7 @@
 [Acorn + Sage Wordpress Theme](https://roots.io)
 
 ### Installation
-1. Install Gutengood package using composer
+1. Install [Gutengood](https://github.com/yarovikov/gutengood) package using composer
 
 ```
 composer require yarovikov/gutengood
