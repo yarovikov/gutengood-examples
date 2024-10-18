@@ -66,6 +66,34 @@ Also possible to add the same components in the repeater:
 
 <img width="600" alt="" src="https://github.com/user-attachments/assets/a2c60247-3c3d-47c4-bbc3-d8f36b4d626a">
 
+#### Make Options Sections
+
+<img width="240" alt="" src="https://github.com/user-attachments/assets/348b267c-423d-4672-904f-9e8948ca9a0f">
+
+```php
+$builder
+  ->addSection('Basic Options', [
+      'open' => true,
+  ])
+  ->addRange('width', [
+      'label' => __('Block width', 'sage'),
+      'value' => 900,
+  ])
+  ->endSection()
+  ->addSection('Colors')
+  ->addColorPalette('bg_color', [
+      'label' => __('BG Color', 'sage'),
+      'colors' => [
+          [
+              'name' => 'black',
+              'color' => '#000',
+              'slug' => 'black',
+          ],
+      ],
+  ])
+  ->endSection();
+```
+
 #### Conditional logic show/hide components
 
 Curently work only with Select and Toggle. Example:

@@ -41,10 +41,26 @@ class Faq extends AbstractBlock
         $builder = new GutengoodBuilder();
 
         $builder
+            ->addSection('Basic Options', [
+                'open' => true,
+            ])
             ->addRange('width', [
                 'label' => __('Block width', 'sage'),
                 'value' => 900,
-            ]);
+            ])
+            ->endSection()
+            ->addSection('Colors')
+            ->addColorPalette('bg_color', [
+                'label' => __('BG Color', 'sage'),
+                'colors' => [
+                    [
+                        'name' => 'black',
+                        'color' => '#000',
+                        'slug' => 'black',
+                    ],
+                ],
+            ])
+            ->endSection();
 
         return $builder->build();
     }

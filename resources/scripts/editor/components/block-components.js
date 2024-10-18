@@ -152,6 +152,7 @@ export default function BlockComponents({attributes, components, onChange, props
         return (
           <SortableList
             key={component.name}
+            componentName={component.name}
             fields={component.fields}
             props={props}
           />

@@ -25,20 +25,26 @@ export default function BlockOptions({name, props}) {
   }, []);
 
   return (
-    <>
+    <InspectorControls>
       {!data && <Spinner/>}
       {data && data.options && data.options.length > 0 && (
-        <InspectorControls>
-          <PanelBody title='Block Options'>
-            <BlockComponents
-              attributes={attributes}
-              components={data.options}
-              onChange={onChangeAttribute}
-              props={props}
-            />
-          </PanelBody>
-        </InspectorControls>
+        data.options.map((section, index) => {
+          return (
+            <PanelBody
+              key={index}
+              title={section.label ?? section.name}
+              initialOpen={section.open ?? false}
+            >
+              <BlockComponents
+                attributes={attributes}
+                components={section.fields}
+                onChange={onChangeAttribute}
+                props={props}
+              />
+            </PanelBody>
+          );
+        })
       )}
-    </>
+    </InspectorControls>
   )
 }

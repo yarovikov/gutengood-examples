@@ -4,14 +4,14 @@ import {arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSor
 import {SortableItem} from "@scripts/editor/components/sortable-item";
 import {Button, BaseControl} from '@wordpress/components';
 
-export const SortableList = ({fields, props}) => {
+export const SortableList = ({componentName, fields, props}) => {
 
   const {
     attributes,
     setAttributes,
   } = props;
 
-  const {items = []} = attributes;
+  const items = attributes[componentName];
   const [sortableItems, setSortableItems] = useState([]);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export const SortableList = ({fields, props}) => {
     if (activeIndex !== overIndex) {
       const newItems = arrayMove(sortableItems, activeIndex, overIndex);
       setSortableItems(newItems);
-      setAttributes({items: newItems});
+      setAttributes({[componentName]: newItems});
     }
   };
 
@@ -66,13 +66,13 @@ export const SortableList = ({fields, props}) => {
 
     const newItems = [...sortableItems, newItem];
     setSortableItems(newItems);
-    setAttributes({items: newItems});
+    setAttributes({[componentName]: newItems});
   };
 
   const deleteItem = (id) => {
     const newItems = sortableItems.filter((item) => item.id !== id);
     setSortableItems(newItems);
-    setAttributes({items: newItems});
+    setAttributes({[componentName]: newItems});
   };
 
   const updateItemContent = (id, name, value) => {
@@ -80,7 +80,7 @@ export const SortableList = ({fields, props}) => {
       item.id === id ? {...item, [name]: value} : item
     );
     setSortableItems(newItems);
-    setAttributes({items: newItems});
+    setAttributes({[componentName]: newItems});
   };
 
   return (

@@ -58,6 +58,7 @@ export default function BlockFields({name, props}) {
         <ServerSideRender
           httpMethod='POST'
           block={name}
+          props={props}
           attributes={props.attributes}
         />
       )}
