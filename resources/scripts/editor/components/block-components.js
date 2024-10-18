@@ -1,9 +1,11 @@
 import {
+  TimePicker,
   TextControl,
   TextareaControl,
   ToggleControl,
   SelectControl,
   ColorPalette,
+  ColorPicker,
   BaseControl,
   RangeControl,
 } from '@wordpress/components';
@@ -45,6 +47,20 @@ export default function BlockComponents({attributes, components, onChange, props
 
   const renderBlockComponents = (component) => {
     switch (component.type) {
+      case 'TimePicker':
+        return (
+          <BaseControl
+            key={component.name}
+            label={component.label}
+          >
+            <TimePicker
+              key={component.name}
+              currentDate={item ? item[component.name] : attributes[component.name]}
+              onChange={(value) => onChange(id, component.name, value)}
+              {...(component.is12hour ? {is12Hour: true} : {})}
+            />
+          </BaseControl>
+        );
       case 'Text':
         return (
           <TextControl
@@ -100,6 +116,21 @@ export default function BlockComponents({attributes, components, onChange, props
               ]}
               disableCustomColors={true}
               clearable={false}
+            />
+          </BaseControl>
+        );
+      case 'ColorPicker':
+        return (
+          <BaseControl
+            key={component.name}
+            label={component.label}
+          >
+            <ColorPicker
+              key={component.name}
+              color={item ? item[component.name] : attributes[component.name]}
+              defaultValue={item ? item[component.name] : attributes[component.name]}
+              onChange={(value) => handleChange(id, component.name, value)}
+              {...(component.alfa ? {enableAlpha: true} : {})}
             />
           </BaseControl>
         );
