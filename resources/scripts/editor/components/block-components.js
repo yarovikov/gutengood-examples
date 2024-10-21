@@ -12,6 +12,7 @@ import {
 import {MediaUpload, MediaUploadCheck, RichText} from '@wordpress/block-editor';
 import {useState, useEffect} from '@wordpress/element';
 import {ImagePreview} from "@scripts/editor/components/image-preview";
+import {File} from "@scripts/editor/components/file";
 import {SortableList} from "@scripts/editor/components/sortable-list";
 
 export default function BlockComponents({attributes, components, onChange, props, item = null, id = null}) {
@@ -151,6 +152,35 @@ export default function BlockComponents({attributes, components, onChange, props
                     remove={() => onChange(id, component.name, 0)}
                     componentName={component.name}
                     mediaId={item ? item[component.name] : attributes[component.name]}
+                  />
+                }
+              />
+            </MediaUploadCheck>
+          </BaseControl>
+        );
+      case 'File':
+        return (
+          <BaseControl
+            key={component.name}
+            label={component.label}
+          >
+            <MediaUploadCheck>
+              <MediaUpload
+                onSelect={(file) => {
+                  onChange(id, component.name, {
+                    id: file.id ?? '',
+                    name: file.filename ?? '',
+                    url: file.url ?? '',
+                    size: file.filesizeHumanReadable ?? '',
+                  })
+                }}
+                value={item ? item[component.name] : attributes[component.name]}
+                render={({open}) =>
+                  <File
+                    open={open}
+                    remove={() => onChange(id, component.name, {})}
+                    componentName={component.name}
+                    file={item ? item[component.name] : attributes[component.name]}
                   />
                 }
               />
