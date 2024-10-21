@@ -2,7 +2,7 @@
 [Acorn + Sage Wordpress Theme](https://roots.io)
 
 ### Installation
-1. Install Gutengood package using composer
+1. Install [Gutengood](https://github.com/yarovikov/gutengood) package using composer
 
 ```
 composer require yarovikov/gutengood
@@ -18,6 +18,20 @@ add_action('enqueue_block_editor_assets', function (): void {
 ```
 
 ### Documentation
+#### Components
+
+- Text
+- Textarea
+- Toggle
+- Select
+- ColorPalette
+- ColorPicker
+- TimePicker (with date)
+- Range
+- RichText
+- Image
+- Repeater (based on @dnd-kit)
+
 Check php part block examples here https://github.com/yarovikov/gutengood-examples/tree/master/app/Editor/Blocks.
 
 #### Block Options
@@ -31,7 +45,7 @@ Use Edit Button to see editable components in the block
 
 <img width="800" alt="" src="https://github.com/user-attachments/assets/d8466f71-8610-4dd7-86d9-a898912f4b2d">
 
-You can use components for options and sidebar. But i don't recommend using RichText in the sidebar because of its floating panel.
+You can use components for fields and options. But i don't recommend using RichText for options in the sidebar because of its floating panel.
 
 Example of options:
 ```php
