@@ -209,6 +209,14 @@ export default function BlockComponents({attributes, components, onChange, props
             placeholder={component.placeholder ?? '...'}
           />
         );
+      case 'Message':
+        return (
+          <BaseControl
+            key={component.name}
+            label={component.label}
+            help={component.help}
+          />
+        );
       case 'Repeater':
         return (
           <SortableList
