@@ -9,7 +9,7 @@ import {
   BaseControl,
   RangeControl,
 } from '@wordpress/components';
-import {MediaUpload, MediaUploadCheck, RichText} from '@wordpress/block-editor';
+import {__experimentalLinkControl as LinkControl, MediaUpload, MediaUploadCheck, RichText} from '@wordpress/block-editor';
 import {useState, useEffect} from '@wordpress/element';
 import {ImagePreview} from "@scripts/editor/components/image-preview";
 import {File} from "@scripts/editor/components/file";
@@ -34,6 +34,14 @@ export default function BlockComponents({attributes, components, onChange, props
       [name]: value,
     }));
     onChange(id, name, value);
+  };
+
+  const handleLinkUpdate = ( id, component, value ) => {
+    const useLinkTitle = component.use_title ?? false;
+
+    if ( !useLinkTitle ) delete value.title;
+
+    onChange ( id, component.name, value );
   };
 
   const shouldRenderComponent = (component) => {
@@ -185,6 +193,23 @@ export default function BlockComponents({attributes, components, onChange, props
                 }
               />
             </MediaUploadCheck>
+          </BaseControl>
+        );
+      case 'Link':
+        return (
+          <BaseControl
+            key={component.name}
+            label={component.label}
+          >
+            <LinkControl
+              searchInputPlaceholder="Search..."
+              value={item ? item[ component.name ] : attributes[ component.name ]}
+              onChange={( value ) => handleLinkUpdate ( id, component, value )}
+              withCreateSuggestion={true}
+              hasUnlinkedControl={true}
+              hasTextControl={component.use_title ?? false}
+              onRemove={() => handleLinkUpdate ( id, component, {} )}
+            />
           </BaseControl>
         );
       case 'Range':
