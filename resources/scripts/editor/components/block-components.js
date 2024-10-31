@@ -53,6 +53,7 @@ export default function BlockComponents({attributes, components, onChange, props
           <BaseControl
             key={component.name}
             label={component.label}
+            help={component.help}
           >
             <TimePicker
               key={component.name}
@@ -87,6 +88,7 @@ export default function BlockComponents({attributes, components, onChange, props
           <ToggleControl
             key={component.name}
             label={component.label}
+            help={component.help}
             checked={item ? item[component.name] : attributes[component.name]}
             onChange={(value) => handleChange(id, component.name, value)}
           />
@@ -96,6 +98,7 @@ export default function BlockComponents({attributes, components, onChange, props
           <SelectControl
             key={component.name}
             label={component.label}
+            help={component.help}
             value={item ? item[component.name] : attributes[component.name]}
             onChange={(value) => handleChange(id, component.name, value)}
             options={[
@@ -108,6 +111,7 @@ export default function BlockComponents({attributes, components, onChange, props
           <BaseControl
             key={component.name}
             label={component.label}
+            help={component.help}
           >
             <ColorPalette
               value={item ? item[component.name] : attributes[component.name]}
@@ -125,6 +129,7 @@ export default function BlockComponents({attributes, components, onChange, props
           <BaseControl
             key={component.name}
             label={component.label}
+            help={component.help}
           >
             <ColorPicker
               key={component.name}
@@ -140,6 +145,7 @@ export default function BlockComponents({attributes, components, onChange, props
           <BaseControl
             key={component.name}
             label={component.label}
+            help={component.help}
           >
             <MediaUploadCheck>
               <MediaUpload
@@ -163,6 +169,7 @@ export default function BlockComponents({attributes, components, onChange, props
           <BaseControl
             key={component.name}
             label={component.label}
+            help={component.help}
           >
             <MediaUploadCheck>
               <MediaUpload
@@ -192,6 +199,7 @@ export default function BlockComponents({attributes, components, onChange, props
           <RangeControl
             key={component.name}
             label={component.label}
+            help={component.help}
             value={item ? item[component.name] : attributes[component.name]}
             onChange={(value) => onChange(id, component.name, value)}
             min={component.min ?? 300}
@@ -201,6 +209,11 @@ export default function BlockComponents({attributes, components, onChange, props
         );
       case 'RichText':
         return (
+          <BaseControl
+          key={component.name}
+          label={component.label}
+          help={component.help}
+        >
           <RichText
             key={component.name}
             label={component.label}
@@ -208,6 +221,7 @@ export default function BlockComponents({attributes, components, onChange, props
             onChange={(value) => onChange(id, component.name, value)}
             placeholder={component.placeholder ?? '...'}
           />
+        </BaseControl>
         );
       case 'Repeater':
         return (
