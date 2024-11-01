@@ -118,7 +118,7 @@ export const SortableList = ({componentName, fields, props}) => {
         onClick={() => addItem(fields)}
         className='block mx-auto mt-3 w-full max-w-[300px]'
       >
-        Add
+        {props.buttonLabel}
       </Button>
     </BaseControl>
   );

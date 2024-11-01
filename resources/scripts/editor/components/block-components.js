@@ -211,12 +211,18 @@ export default function BlockComponents({attributes, components, onChange, props
         );
       case 'Repeater':
         return (
+          <BaseControl
+            key={component.name}
+            label={component.label}
+            help={component.help}
+          >
           <SortableList
             key={component.name}
             componentName={component.name}
             fields={component.fields}
-            props={props}
+            props={{ ...props, buttonLabel: component.button_label || 'Add' }}
           />
+          </BaseControl>
         );
       default:
         return null;
