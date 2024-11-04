@@ -8,43 +8,49 @@ if ('undefined' !== typeof window.gutengoodBlocks) {
     const name = block.name;
     registerBlockType(name, {
       title: block.title,
-      icon: getIcon ( block.icon ),
+      icon: getIcon(block.icon),
       description: block.description,
       category: block.category,
-      edit: (props) => {
-        return (
-            <Fragment>
-              <BlockOptions name={name} props={props}/>
-              <BlockFields name={name} props={props}/>
-            </Fragment>
-        )
-      },
+      edit: (props) => (
+        <Fragment>
+          <BlockOptions name={name} props={props}/>
+          <BlockFields name={name} props={props}/>
+        </Fragment>
+      ),
       save: () => null,
     });
   });
 }
 
-function getIcon ( icon ) {
-  console.log ( icon );
-  if ( !icon.includes ( '"svg"' ) ) return icon;
-  const json = JSON.parse ( icon );
-  // if ( !icon.hasOwnProperty ( 'svg' ) ) return icon;
-  console.log ( json );
-  const { svg } = json;
+function getIcon(icon) {
+  if (!icon || typeof icon !== 'string' || !icon.includes('"svg"')) {
+    return icon;
+  }
+
+  const json = JSON.parse(icon);
+  const {svg} = json;
   const paths = svg.paths
-    ? svg.paths.map ( ( path ) => wp.element.createElement ( 'path', {
-      fill: path[ '@attributes' ].fill,
-      d: path[ '@attributes' ].d,
-    } ) )
-    : wp.element.createElement ( 'path', {
-      fill: svg.path[ '@attributes' ].fill,
-      d: svg.path[ '@attributes' ].d,
-    } );
+    ? svg.paths.map((path, index) => (
+      <path
+        key={index}
+        fill={path['@attributes'].fill}
+        d={path['@attributes'].d}
+      />
+    ))
+    : (
+      <path
+        fill={svg.path['@attributes'].fill}
+        d={svg.path['@attributes'].d}
+      />
+    );
 
-  return wp.element.createElement ( 'svg', {
-    width: svg[ '@attributes' ].width,
-    height: svg[ '@attributes' ].height,
-    viewBox: svg[ '@attributes' ].viewBox,
-  }, paths );
+  return (
+    <svg
+      width={svg['@attributes'].width}
+      height={svg['@attributes'].height}
+      viewBox={svg['@attributes'].viewBox}
+    >
+      {paths}
+    </svg>
+  );
 }
-
