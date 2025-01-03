@@ -44,7 +44,7 @@ composer require yarovikov/gutengood
 yarn add gutengood-js
 ```
 
-3. Import gutengood js and css in your editor.js ans editor.css
+3. Import gutengood js and css
 
 add this in editor.js
 ```js
