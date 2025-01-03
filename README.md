@@ -32,13 +32,13 @@
 [Acorn + Sage Wordpress Theme](https://roots.io)
 
 ## Installation
-1. Install [Gutengood](https://github.com/yarovikov/gutengood) package using composer
+1. Install [gutengood](https://github.com/yarovikov/gutengood) package using composer
 
 ```
 composer require yarovikov/gutengood
 ```
 
-2. Install gutengood-js
+2. Install [gutengood-js](https://github.com/yarovikov/gutengood-js)
 
 ```
 yarn add gutengood-js
@@ -46,11 +46,11 @@ yarn add gutengood-js
 
 3. Import gutengood js and css in your editor.js ans editor.css
 
-editor.js
+add this in editor.js
 ```js
 import 'gutengood-js/build/gutengood';
 ```
-editor.css
+add this in editor.css
 ```css
 @import "../../node_modules/gutengood-js/build/gutengood.css";
 ```
@@ -62,8 +62,6 @@ add_action('enqueue_block_editor_assets', function (): void {
     bundle('editor')->enqueue();
 }, 100);
 ```
-
-## Documentation
 
 Please follow the standard project structure:
 
