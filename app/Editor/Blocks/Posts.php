@@ -21,9 +21,9 @@ class Posts extends AbstractBlock
     public function getBlockData(array $attributes, string $content): array
     {
         $data = [
-            'title' => (string) ($attributes['title'] ?? ''),
-            'text' => (string) ($attributes['text'] ?? ''),
-            'is_hide_images' => (bool) ($attributes['is_hide_images'] ?? ''),
+            'title' => (string)($attributes['title'] ?? ''),
+            'text' => (string)($attributes['text'] ?? ''),
+            'is_hide_images' => (bool)($attributes['is_hide_images'] ?? ''),
             'posts' => $this->getPosts($attributes),
         ];
 
@@ -53,7 +53,6 @@ class Posts extends AbstractBlock
             ])
             ->addToggle('is_hide_images', [
                 'label' => __('Hide images?', 'sage'),
-                'meta' => true,
             ]);
 
         return $builder->build();
@@ -80,12 +79,12 @@ class Posts extends AbstractBlock
 
     public function getPosts(array $attributes): array
     {
-        $category = (int) ($attributes['category'] ?? '');
+        $category = (int)($attributes['category'] ?? '');
 
         $args = [
             'post_type' => 'post',
             'post_status' => 'publish',
-            'posts_per_page' => (int) ($attributes['post_count'] ?? 8),
+            'posts_per_page' => (int)($attributes['post_count'] ?? 8),
             'fields' => 'ids',
         ];
 
