@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/** Default margins from block options */
+.gutengood-block {
+  margin-top: var(--block-margin-top-mobile);
+  margin-bottom: var(--block-margin-bottom-mobile);
+
+  @media screen(lg) {
+    margin-top: var(--block-margin-top-desktop);
+    margin-bottom: var(--block-margin-bottom-desktop);
+  }
+}
