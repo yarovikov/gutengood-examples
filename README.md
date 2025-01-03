@@ -211,3 +211,8 @@ You don't need block js for register for the editor. But if needed you can set $
 public bool $editor_script = true;
 ```
 Then add your custom jsx here ```resources/scripts/editor/blocks```
+
+---
+
+Feel free to add your own examples 👻
+
