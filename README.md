@@ -1,7 +1,7 @@
 # Gutengood - simple and elegant solution for creating Gutenberg Blocks and CPT Sidebar Panels
 
 ## Key Features
-- Quick creation of blocks based on WP React components (excluding DNB kit for repeater)
+- Quick creation of blocks and panels (cpt fields in the sidebar) based on WP React components (excluding DNB kit for repeater)
 - Nice UI - you can place components in the editor and/or sidebar (block options)
 - Post meta support (save block data in postmeta)
 - Conditional logic for components (show/hide some fields based on value from other)
