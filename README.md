@@ -1,4 +1,4 @@
-# Gutengood - simple and elegant solution for creating Gutenberg Blocks
+# Gutengood - simple and elegant solution for creating Gutenberg Blocks and CPT Sidebar Panels
 
 ## Key Features
 - Quick creation of blocks based on WP React components (excluding DNB kit for repeater)
