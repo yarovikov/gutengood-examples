@@ -4,6 +4,20 @@
 @tailwind components;
 @tailwind utilities;
 
+.editor-styles-wrapper {
+  .wp-block-post-title {
+    @apply text-2xl font-medium px-4 mb-10;
+  }
+
+  .block-editor-block-list__layout {
+    @apply px-4;
+  }
+
+  div {
+    @apply antialiased text-base text-stone-900 font-normal leading-snug;
+  }
+}
+
 /** Default margins from block options */
 .gutengood-block {
   @apply pointer-events-none;

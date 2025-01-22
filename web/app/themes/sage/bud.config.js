@@ -1,55 +1,24 @@
-/**
- * Compiler configuration
- *
- * @see {@link https://roots.io/sage/docs sage documentation}
- * @see {@link https://bud.js.org/learn/config bud.js configuration guide}
- *
- * @type {import('@roots/bud').Config}
- */
 export default async (app) => {
-  /**
-   * Application assets & entrypoints
-   *
-   * @see {@link https://bud.js.org/reference/bud.entry}
-   * @see {@link https://bud.js.org/reference/bud.assets}
-   */
   app
     .entry('app', ['@scripts/app', '@styles/app'])
     .entry('editor', ['@scripts/editor', '@styles/editor'])
     .assets(['images']);
 
-  /**
-   * Set public path
-   *
-   * @see {@link https://bud.js.org/reference/bud.setPublicPath}
-   */
+  app.postcss
+    .setPlugin(`postcss-import`)
+    .setPlugin(`tailwindcss/nesting`)
+    .setPlugin(`tailwindcss`)
+    .use(['postcss-import', 'tailwindcss/nesting', 'tailwindcss'])
+
   app.setPublicPath('/app/themes/sage/public/');
 
-  /**
-   * Development server settings
-   *
-   * @see {@link https://bud.js.org/reference/bud.setUrl}
-   * @see {@link https://bud.js.org/reference/bud.setProxyUrl}
-   * @see {@link https://bud.js.org/reference/bud.watch}
-   */
   app
     .setUrl('http://localhost:3000')
     .setProxyUrl('http://example.test')
     .watch(['resources/views', 'app']);
-
-  /**
-   * Generate WordPress `theme.json`
-   *
-   * @note This overwrites `theme.json` on every build.
-   *
-   * @see {@link https://bud.js.org/extensions/sage/theme.json}
-   * @see {@link https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json}
-   */
+  
   app.wpjson
     .setSettings({
-      background: {
-        backgroundImage: true,
-      },
       color: {
         custom: false,
         customDuotone: false,
@@ -59,22 +28,21 @@ export default async (app) => {
         defaultPalette: false,
         duotone: [],
       },
-      custom: {
-        spacing: {},
-        typography: {
-          'font-size': {},
-          'line-height': {},
-        },
-      },
-      spacing: {
-        padding: true,
-        units: ['px', '%', 'em', 'rem', 'vw', 'vh'],
-      },
+      custom: {},
+      spacing: {},
       typography: {
-        customFontSize: false,
-      },
+        'fontFamilies': [],
+        'customFontSize': false,
+        'dropCap': false,
+        'fontStyle': false,
+        'fontWeight': false,
+        'letterSpacing': false,
+        'lineHeight': false,
+        'textColumns': false,
+        'textDecoration': false,
+        'textTransform': false,
+        'writingMode': false
+      }
     })
-    .useTailwindColors()
-    .useTailwindFontFamily()
-    .useTailwindFontSize();
+    .enable();
 };

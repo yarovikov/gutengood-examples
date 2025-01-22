@@ -42,7 +42,8 @@
     "roots/wp-password-bcrypt": "1.2.0",
     "wpackagist-theme/twentytwentyfive": "^1.0",
     "yarovikov/gutengood": "^2.1",
-    "roots/acorn": "^4.3"
+    "roots/acorn": "^4.3",
+    "blade-ui-kit/blade-icons": "^1.7"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",

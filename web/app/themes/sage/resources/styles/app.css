@@ -2,6 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  @apply h-full;
+}
+
+body {
+  @apply antialiased text-stone-900 font-normal font-ubuntu leading-snug;
+  @apply flex flex-col h-full;
+}
+
+#app {
+  @apply h-full flex flex-col;
+}
+
+.main {
+  @apply flex-1;
+}
+
+.site-header {
+  @apply fixed bg-white w-full border-b;
+}
+
+.header-nav {
+  @apply list-none flex gap-4 py-4 uppercase text-sm font-medium;
+
+  a {
+    @apply text-stone-900;
+  }
+
+  a:hover, .current a {
+    @apply text-sky-700;
+  }
+}
+
+.container {
+  @apply mx-auto px-5 w-[1200px] max-w-full;
+}
+
+a {
+  @apply text-sky-700;
+}
+
 /** Default margins from block options */
 .gutengood-block {
   margin-top: var(--block-margin-top-mobile);

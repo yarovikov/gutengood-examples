@@ -7,7 +7,7 @@
   @endif
 
   @while(have_posts()) @php(the_post())
-    @includeIf(['partials.content-' . get_post_type()])
+    @includeIf('partials.content-' . get_post_type())
   @endwhile
 
 @endsection
