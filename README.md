@@ -212,6 +212,67 @@ public bool $editor_script = true;
 ```
 Then add your custom jsx here ```resources/scripts/editor/blocks```
 
+### CPT Panels
+Example https://github.com/yarovikov/gutengood-examples/blob/main/app/Editor/Panels/PageOptions.php
+
+### Widget Area
+Gutengood works by default only with content. But you can pass sidebar content using ```content_with_gutengood_blocks``` filter:
+
+```php
+ /**
+ * Pass blocks content from the widget area to gutengood absract block for checking and enqueue if isset
+ * Based on https://github.com/WordPress/gutenberg/issues/44616
+ */
+
+add_filter('content_with_gutengood_blocks', function (string $content): string {
+    /**
+    * Use page template, meta, etc to check sidebar presence on the page
+    * This is important to avoid loading block assets on the page when you have added blocks in the widget area even when the sidebar is not on the page
+    * Example with is_hide_sidebar meta:
+    */
+    if (!is_page() || true === (bool) get_post_meta(get_the_ID(), 'is_hide_sidebar', true)) {
+        return $content;
+    }
+
+    $widgets = wp_get_sidebars_widgets();
+    if (empty($widgets)) {
+        return $content;
+    }
+
+    global $wp_widget_factory;
+    $blocks_content = [];
+
+    foreach ($widgets as $key => $value) {
+        if ('sidebar' === $key) { // sidebar key required
+            if (isset($value) && is_array($value) && !empty($value)) {
+                foreach ($value as $widget_id) {
+                    $parsed_id = wp_parse_widget_id($widget_id);
+                    $widget_object = $wp_widget_factory->get_widget_object($parsed_id['id_base']);
+                    if ($widget_object && isset($parsed_id['number'])) {
+                        $all_instances = $widget_object->get_settings();
+                        if (!empty($all_instances)) {
+                            $instance = $all_instances[$parsed_id['number']];
+                            $serialized_instance = serialize($instance);
+                            $prepared['instance']['encoded'] = base64_encode($serialized_instance);
+                            $prepared['instance']['hash'] = wp_hash($serialized_instance);
+                            if (!empty($widget_object->widget_options['show_instance_in_rest'])) {
+                                $prepared['instance']['raw'] = empty($instance) ? new stdClass : $instance;
+                                $blocks_content[] = $prepared['instance']['raw']['content'];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if (empty($blocks_content)) {
+        return $content;
+    }
+
+    return $content . implode('', $blocks_content);
+});
+```
+
 ---
 
 Feel free to add your own examples 👻
