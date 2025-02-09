@@ -1,0 +1,31 @@
+{
+  "__generated__": "⚠️ This file is generated. Do not edit.",
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 2,
+  "settings": {
+    "color": {
+      "custom": false,
+      "customDuotone": false,
+      "customGradient": false,
+      "defaultDuotone": false,
+      "defaultGradients": false,
+      "defaultPalette": false,
+      "duotone": []
+    },
+    "custom": {},
+    "spacing": {},
+    "typography": {
+      "fontFamilies": [],
+      "customFontSize": false,
+      "dropCap": false,
+      "fontStyle": false,
+      "fontWeight": false,
+      "letterSpacing": false,
+      "lineHeight": false,
+      "textColumns": false,
+      "textDecoration": false,
+      "textTransform": false,
+      "writingMode": false
+    }
+  }
+}
