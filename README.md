@@ -43,6 +43,10 @@ composer require yarovikov/gutengood
 ```
 yarn add gutengood-js
 ```
+or
+```
+npm install gutengood-js
+```
 
 3. Import gutengood js and css
 
@@ -55,12 +59,10 @@ add this in editor.css
 @import "../../node_modules/gutengood-js/build/gutengood.css";
 ```
 
-4. Run ```yarn build```
-5. Enqueue editor assets if you don't have this in your setup.php
-```php
-add_action('enqueue_block_editor_assets', function (): void {
-    bundle('editor')->enqueue();
-}, 100);
+4. Run ```yarn build``` or ```npm run build``` (Sage 11)
+5. If you use Sage 11 with Vite add this to your .env
+```
+IS_VITE='1'
 ```
 
 Please follow the standard project structure:
